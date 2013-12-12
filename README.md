@@ -1,7 +1,7 @@
 Eazita-PHP-Script
 =================
 
-Sending SMS via the Eazita SMS gateway.
+Sending SMS via Eazita SMS gateway.
 
 
 Quick Examples

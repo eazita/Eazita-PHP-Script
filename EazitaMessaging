@@ -1,0 +1,35 @@
+<?php
+function EazitaJSON($api,$pass,$code,$to,$from,$type,$msg)
+{
+    $data = array();
+    $data['api'] = $api;
+    $data['pass'] = $pass;
+    $data['code'] = $code;
+    $data['to'] = $to;
+    $data['from'] = $from;
+    $data['type'] = $type;
+    $data['msg'] = $msg;
+    
+    $post_str = '';
+    foreach($data as $key=>$val) {
+    	$post_str .= $key.'='.urlencode($val).'&';
+    }
+    $post_str = substr($post_str, 0, -1);
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'http://api.eazita.com/json' );
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_str);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    
+    $responce = curl_exec($ch);
+    curl_close($ch );  
+    $responce = urlencode($responce);
+    $responce =str_replace("%7B%22messages%22%3A+","","$responce");
+    $responce = urldecode($responce);
+    $responce =rtrim($responce,"}");
+    return $responce;
+}
+
+
+?>

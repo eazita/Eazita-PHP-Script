@@ -1,4 +1,4 @@
-Eazita-PHP-Script
+Eazita PHP Script
 =================
 
 Sending SMS via Eazita SMS gateway.
@@ -23,7 +23,7 @@ Now open jsontest.php & send your first message
 	$sms=EazitaPlain('4t45','12345','92','3122699633','eazita','Hello Hamza!');
 	echo "$sms";
 
-NOTE: Must Use PHP Include Code in Webpages otherwise it will work..:)
+NOTE: Must Use PHP Include Code in Webpages otherwise it will not work..:)
 			
-						<?php include 'EazitaMessaging.php'; ?>
+	<?php include 'EazitaMessaging.php'; ?>
 

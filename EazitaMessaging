@@ -30,6 +30,27 @@ function EazitaJSON($api,$pass,$code,$to,$from,$type,$msg)
     $responce =rtrim($responce,"}");
     return $responce;
 }
+function EazitaPlain($key,$pass,$code,$to,$from,$msg)
+{
+$eazitakey = urlencode($key);
+$eazitapass = urlencode($pass);
+$code = urlencode($code);
+$to = urlencode($to);
+$from = urlencode($from);
+$msg = urlencode($msg);
+$type = urlencode($type);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL,'http://api.eazita.com/plain?api='.$eazitakey.'&pass='.$eazitapass.'&code='.$code.'&type='.$type.'&to='.$to.'&from='.$from.'&msg='.$msg);
+curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+$chk= curl_exec ($ch);
+if($chk==1) $responce="Message Successfully Send";
+elseif($chk==-1) $responce="Fields Missing";
+elseif($chk==-2) $responce="Invalid login detail";
+elseif($chk==-3) $responce="Your balance is low";
+elseif($chk==-4) $responce="Message Sending Failed";
+return $responce;
+}
 
 
 ?>

@@ -51,6 +51,31 @@ elseif($chk==-3) $responce="Your balance is low";
 elseif($chk==-4) $responce="Message Sending Failed";
 return $responce;
 }
-
+function EazitaDLVR($api,$pass)
+{
+    $data = array();
+    $data['api'] = $api;
+    $data['pass'] = $pass;
+    
+    $post_str = '';
+    foreach($data as $key=>$val) {
+    	$post_str .= $key.'='.urlencode($val).'&';
+    }
+    $post_str = substr($post_str, 0, -1);
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'http://api.eazita.com/dlvr' );
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_str);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    
+    $responce = curl_exec($ch);
+    curl_close($ch );  
+    $responce = urlencode($responce);
+    $responce =str_replace("%7B%22delivery%22%3A","","$responce");
+    $responce = urldecode($responce);
+    $responce =rtrim($responce,"}");
+    return $responce;
+}
 
 ?>

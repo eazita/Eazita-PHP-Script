@@ -25,6 +25,7 @@ Now open jsontest.php & send your first message
 
 
 3) Get delivery reports
+
 Edit dlvr.php
 Change API KEY & Password
 

@@ -9,16 +9,17 @@
 
 <form method="post">
 <p align="center">Country Code<br>
-<input name="ccode" type="text"></p>
-<p align="center">Receipent<br>
-<input name="to" type="text"></p>
+<input name="ccode" value="92" type="text"></p>
 <p align="center">Sender<br>
-<input name="from" type="text"></p>
+<input name="from" value="eazita" type="text"></p>
 <p align="center">Message Type<br><select name="type">
 <option value="text">Simple MSG</option>
 <option value="unicode">UNICode(Multi Language)</option>
 </select>
 </p>
+<p align="center">Recipients<br>
+<textarea name="to" style="margin: 2px; height: 100px; width: 340px;">Enter or paste the recipient numbers using the same country that you are using in country code, Separate each recipient with a comma or semicolon.
+(e.g. 923122699633;03122699633;9250000000)</textarea></p>
 <p align="center">Type Your Msg Here<br>
 <textarea name="msg" style="margin: 2px; height: 145px; width: 310px;"></textarea></p>
 <p align="center"><input type="submit" value="Submit"></form></p>
@@ -48,21 +49,13 @@ $data=json_decode($responce);
  {
 $status="".$data[$i]->status."";
 $messageid="".$data[$i]->messageid."";
-$to="".$data[$i]->to."";
-$type="".$data[$i]->type."";
-$price="".$data[$i]->price."";
-$count="".$data[$i]->count."";
-$remainbalance="".$data[$i]->remainbalance."";
-$error="".$data[$i]->error."";
-}
+$to="".$data[$i]->gsm."";
 echo "<div align='center'>";
-if($status == "1")
-{
-echo "<table border='1'><tr><th>Message ID</th><th>Type</th><th>Status</th></tr><tr><td>$messageid</td><td>$type</td><td>$error</td></tr><tr><th>Price</th><th>SMS Count</th><th>Remain Balance</th></tr><tr><td>$price</td><td>$count</td><td>$remainbalance</td></tr></table>";
-} else {
-echo "<h3>$error</h3>";
-}
+echo "<table border='1'><tr><th>Message ID</th><th>Recipient</th><th>Status</th></tr><tr><td>$messageid</td><td>$to</td><td>$status</td></tr></table>";
 echo "</div>";
+}
+
+
 }}}
 ?>
 </body></html>

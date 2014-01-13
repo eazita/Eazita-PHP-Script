@@ -24,9 +24,7 @@ function EazitaJSON($api,$pass,$code,$to,$from,$type,$msg)
     
     $responce = curl_exec($ch);
     curl_close($ch );  
-    $responce = urlencode($responce);
-    $responce =str_replace("%7B%22messages%22%3A+","","$responce");
-    $responce = urldecode($responce);
+    $responce = strchr("$responce","[");;
     $responce =rtrim($responce,"}");
     return $responce;
 }

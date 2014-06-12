@@ -18,8 +18,7 @@
 </select>
 </p>
 <p align="center">Recipients<br>
-<textarea name="to" style="margin: 2px; height: 100px; width: 340px;">Enter or paste the recipient numbers using the same country that you are using in country code, Separate each recipient with a comma or semicolon.
-(e.g. 923122699633;03122699633;9250000000)</textarea></p>
+<textarea name="to" style="margin: 2px; height: 100px; width: 340px;">Recipient number(s) must be in international number format without 0 or + (e.g. 923122699633).</textarea></p>
 <p align="center">Type Your Msg Here<br>
 <textarea name="msg" style="margin: 2px; height: 145px; width: 310px;"></textarea></p>
 <p align="center"><input type="submit" value="Submit"></form></p>

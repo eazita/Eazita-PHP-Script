@@ -43,10 +43,13 @@ curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 $chk= curl_exec ($ch);
 if($chk==1) $responce="Message Successfully Send";
-elseif($chk==-1) $responce="Fields Missing";
-elseif($chk==-2) $responce="Invalid login detail";
-elseif($chk==-3) $responce="Your balance is low";
-elseif($chk==-4) $responce="Message Sending Failed";
+elseif($chk==-1) $responce="Your request is incomplete and missing some mandatory parameters";
+elseif($chk==-2) $responce="The API Key / password you supplied is either invalid or disabled";
+elseif($chk==-3) $responce="Your eazita account does not have sufficient credit to process this message";
+elseif($chk==-4) $responce="Sender name is not allowed";
+elseif($chk==-5) $responce="Number is not recognized by our sms platform.";
+elseif($chk==-6) $responce="General error, reasons may vary";
+elseif($chk==-7) $responce="An error has occurred in the eazita platform whilst processing this message";
 return $responce;
 }
 function EazitaDLVR($api,$pass)

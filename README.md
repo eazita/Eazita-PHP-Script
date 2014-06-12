@@ -20,7 +20,8 @@ Now open jsontest.php & send your first message
 
 2) Send SMS using simple plain API
 
-	$sms=EazitaPlain('4t45','12345','','3122699633','eazita','Hello Hamza!');
+
+	$sms=EazitaPlain('4t45','12345','','923122699633','eazita','Hello Hamza!');
 	echo "$sms";
 
 

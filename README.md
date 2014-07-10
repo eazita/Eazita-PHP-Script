@@ -18,11 +18,15 @@ Change API KEY & Password
 Now open jsontest.php & send your first message
 
 
+
+
 2) Send SMS using simple plain API
 
 
 	$sms=EazitaPlain('4t45','12345','','923122699633','eazita','Hello Hamza!');
 	echo "$sms";
+
+
 
 
 4) Send SMS using email to sms system
@@ -51,8 +55,12 @@ example: EZSMS{SPACE}Hi it is a demo message
 
 DEMO Example:
 Email: 923122699633@emailtosms.serverlin.com
+
 Email is subject: xxapikey cpanel.eazita.com MyPasswordIsHere
+
 Email is message: MySender Hi there how are you?
+
+
 
 
 

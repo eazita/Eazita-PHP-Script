@@ -78,5 +78,20 @@ function EazitaDLVR($api,$pass)
     $responce =rtrim($responce,"}");
     return $responce;
 }
-
+function emailtosms($to,$from,$msg,$api,$pass,$url,$youremail) {
+$from=str_replace(' ','',$from);
+$to= (filter_var($to, FILTER_SANITIZE_NUMBER_INT));
+if ($to == "") { return "Please provide correct recipient number with country code."; exit(""); }
+if ($from == "") { return "SenderID is missing."; exit(""); }
+if ($api == "") { return "APIkey is missing."; exit(""); }
+if ($pass == "") { return "Password is missing."; exit(""); }
+if ($msg == "") { return "Message is missing."; exit(""); }
+if ($url == "") { return "Control Panel URL is Missing."; exit(""); }
+$url="cpanel.eazita.com";
+$receiver="$to@emailtosms.serverlin.com";
+$subject="$api $url $pass";
+$message="$from $msg";
+$sfdsf=mail("$receiver","$subject","$message","From: $youremail\n");
+if ($sfdsf) { return "Message Successfully Sent"; } else { return "Message Sending Failed"; }
+}
 ?>

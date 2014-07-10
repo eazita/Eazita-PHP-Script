@@ -28,15 +28,15 @@ Now open jsontest.php & send your first message
 4) Send SMS using email to sms system
 
 
-$eazita=emailtosms("923122699633","MySender","My Message","APIkey","Password","cpanel.eazita.com","MyEmail");
-echo "$eazita";
+	$eazita=emailtosms("923122699633","MySender","My Message","APIkey","Password","cpanel.eazita.com","MyEmail");
+	echo "$eazita";
 
 
 How It Process:
 
 Our email: number@emailtosms.serverlin.com
 
-Add mobile number in email address before @ symbol.
+Add mobile number with country code in email address before @ symbol.
 
 example: 923122699633@emailtosms.serverlin.com
 

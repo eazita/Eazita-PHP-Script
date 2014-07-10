@@ -54,6 +54,7 @@ example: EZSMS{SPACE}Hi it is a demo message
 
 
 DEMO Example:
+
 Email: 923122699633@emailtosms.serverlin.com
 
 Email is subject: xxapikey cpanel.eazita.com MyPasswordIsHere

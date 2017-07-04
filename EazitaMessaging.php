@@ -40,6 +40,7 @@ class Eazita {
 
 
     function execute_send(){
+        if(count($this->request)>0){
         $mh = curl_multi_init();
         $id=0;
         $tempdata=array();
@@ -66,7 +67,7 @@ class Eazita {
             if($temp[messages][0]) $result[$tempdata[$id]] =$temp[messages][0];
             curl_multi_remove_handle($mh, $c);
         }
-        
+        }
         
         
         return $result;

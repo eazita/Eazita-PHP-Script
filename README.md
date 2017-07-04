@@ -1,79 +1,79 @@
-Eazita PHP Script
+Eazita Library for PHP
 =================
 
 Sending SMS via Eazita SMS gateway.
 
 
-Quick Examples
+
+Installation
+------------
+
+1) To use this library first you'll have to [created an Eazita account][signup].
+2) Download this library into your hosting/server. however, you'll also need to ensure that PHP cURL is enabled in your hosting/server.
+
+
+Usage
+------------
+Include library in your php file:
+
+```php
+require 'EazitaMessaging.php';
+```
+
+
+Sending Messages
+------------
+1) To send messages, First create Authentication with your API key and password:
+
+```php
+$ezsms = new Eazita("API_KEY","PASSWORD");
+```
+
+2) Then use build_send() method to build multiple messages.
+
+```php
+$ezsms->build_send(['to' => "Recipient",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
+```
+You can also build multiple requests: 
+
+```php
+$ezsms->build_send(['to' => "Recipient_1",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => "Recipient_2",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => "Recipient_3",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
+```
+3) Then use execute_send() to execute your request:
+
+```php
+$msg=$ezsms->execute_send();
+```
+
+Full Code:
+```php
+$ezsms = new Eazita("API_KEY","PASSWORD");
+
+$ezsms->build_send(['to' => "Recipient_1",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => "Recipient_2",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => "Recipient_3",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
+
+$msg=$ezsms->execute_send();
+```
+
+
+
+Quick Example
 --------------
 
-1) Send using prebuild messaging form (jsontest.php)
+Send SMS using prebuild messaging form (Example_SendSMS.php)
 
-Edit jsontest.php
-Change API KEY & Password
+1) Edit Example_SendSMS.php & Change API_KEY & Eazita_Password with your credentials:
 
-	$key="API_KEY"; //Your API KEY
-	$pass="Eazita_Password"; Your Eazita Account Password
+```php
+$ezsms = new Eazita("API_KEY","Eazita_Password");
+```
 
-Now open jsontest.php & send your first message
-
-
-
-
-2) Send SMS using simple plain API
-
-
-	$sms=EazitaPlain('4t45','12345','','923122699633','eazita','Hello Hamza!');
-	echo "$sms";
+2) Now open Example_SendSMS.php & send your first messages.
 
 
 
 
-4) Send SMS using email to sms system
-
-
-	$eazita=emailtosms("923122699633","MySender","My Message","APIkey","Password","cpanel.eazita.com","MyEmail");
-	echo "$eazita";
-
-
-How It Process:
-
-Our email: number@emailtosms.serverlin.com
-
-Add mobile number with country code in email address before @ symbol.
-
-example: 923122699633@emailtosms.serverlin.com
-
-Type APIkey, cpanel.eazita.com and Password in subject area.
-
-example: APIKEY{SPACE}cpanel.eazita.com{SPACE}PASSWORD
-
-Type SenderID and Message in your email is message area.
-
-example: EZSMS{SPACE}Hi it is a demo message
-
-
-DEMO Example:
-
-Email: 923122699633@emailtosms.serverlin.com
-
-Email is subject: xxapikey cpanel.eazita.com MyPasswordIsHere
-
-Email is message: MySender Hi there how are you?
-
-
-
-
-
-3) Get delivery reports
-
-Edit dlvr.php
-Change API KEY & Password
-
-	$key="API_KEY"; //Your API KEY
-	$pass="Eazita_Password"; Your Eazita Account Password
-
-
-NOTE: Must Use PHP Include Code in Webpages otherwise it will not work..:)
-			
-	include 'EazitaMessaging.php';
+[signup]: https://eazita.com/sign-up/

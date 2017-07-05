@@ -104,7 +104,7 @@ if($lookup[code]==1){
     foreach($lookup[data] as $id=>$data){
         print_r($data);
     }
-}else{ echo "Error code: ".$lookup['code'].", ".$lookup['message']; }
+}else{ echo "Error code: ".$lookup['code'].", ".$lookup['error']; }
 ```
 
 

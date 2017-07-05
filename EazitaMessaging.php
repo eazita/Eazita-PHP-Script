@@ -6,16 +6,26 @@ class Eazita {
     protected $request, $options;
     protected $base_url = "api.eazita.com";
     var $msg_type = array("text", "unicode", "flash", "flashunicode");
+    var $hlr_packages = array("basic", "carrier", "cnam");
       
     function __construct($apikey,$pass,$options=array()){
-        $this->apikey = $apikey;
-        $this->pass = $pass;
+        $this->apikey = urlencode($apikey);
+        $this->pass = urlencode($pass);
         if(!is_numeric($options[max_throughout])) $this->options[max_throughout]=10;
         if(!$options[protocol]) $this->options[protocol]="https://";
         $this->pass = $pass;
     }
     
-    
+    function lookup($data){
+        if(!$data[gsm]) return false;
+        if($data[package]) if(!in_array($data[package],$this->hlr_packages)) return false;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->options[protocol].$this->base_url."/lookup?api=".$this->apikey."&pass=".$this->pass."&package=".urlencode($data[package])."&gsm=".urlencode($data[gsm]));
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        return json_decode(curl_exec($ch),true);
+    }
     function getbalance(){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->options[protocol].$this->base_url."/balance?api=".$this->apikey."&pass=".$this->pass);
@@ -73,5 +83,3 @@ class Eazita {
         return $result;
     }
 }
-
-?>

@@ -33,16 +33,16 @@ $ezsms = new Eazita("API_KEY","PASSWORD");
 2) Then use build_send() method to build your message.
 
 ```php
-$ezsms->build_send(['to' => "Recipient",'from' => EZSMS,'type' => 'text','msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => 'Recipient','from' => 'EZSMS','type' => 'text','msg' => 'Test message from Eazita.']);
 ```
 build_send() method will return boolean true if your message is successfully build.
 
 You can also build multiple messaging requests: 
 
 ```php
-$ezsms->build_send(['to' => "Recipient_1",'from' => EZSMS,'type' => 'text','msg' => 'Test message from Eazita.']);
-$ezsms->build_send(['to' => "Recipient_2",'from' => EZSMS,'type' => 'text','msg' => 'Test message from Eazita.']);
-$ezsms->build_send(['to' => "Recipient_3",'from' => EZSMS,'type' => 'flash','msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => 'Recipient_1','from' => 'EZSMS','type' => 'text','msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => 'Recipient_2','from' => 'EZSMS','type' => 'text','msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => 'Recipient_3','from' => 'EZSMS','type' => 'flash','msg' => 'Test message from Eazita.']);
 ```
 
 
@@ -56,7 +56,7 @@ $msg=$ezsms->execute_send();
 4) The API response data can be accessed as array properties of the execute_send() method:
 ```php
 if(count($msg)>0){ foreach($msg as $recipient=>$resp){
-    echo "The status of message on ".$recipient." is ".$resp[status]." & the message id is ".$resp[messageid].".";
+    echo "The status of message on ".$recipient." is ".$resp['status']." & the message id is ".$resp['messageid'].".";
 } }
 ```
 
@@ -66,14 +66,14 @@ Full Code:
 ```php
 $ezsms = new Eazita("API_KEY","PASSWORD");
 
-$ezsms->build_send(['to' => "Recipient_1",'from' => EZSMS,'type' => 'text','msg' => 'Test message from Eazita.']);
-$ezsms->build_send(['to' => "Recipient_2",'from' => EZSMS,'type' => 'text','msg' => 'Test message from Eazita.']);
-$ezsms->build_send(['to' => "Recipient_3",'from' => EZSMS,'type' => 'flash','msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => 'Recipient_1','from' => 'EZSMS','type' => 'text','msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => 'Recipient_2','from' => 'EZSMS','type' => 'text','msg' => 'Test message from Eazita.']);
+$ezsms->build_send(['to' => 'Recipient_3','from' => 'EZSMS','type' => 'flash','msg' => 'Test message from Eazita.']);
 
 $msg=$ezsms->execute_send();
 
 if(count($msg)>0){ foreach($msg as $recipient=>$resp){
-    echo "The status of message on ".$recipient." is ".$resp[status]." & the message id is ".$resp[messageid].".";
+    echo "The status of message on ".$recipient." is ".$resp['status']." & the message id is ".$resp['messageid'].".";
 } }
 ```
 
@@ -85,7 +85,7 @@ Use getbalance() method to check your eazita account balance:
 ```php
 $ezsms = new Eazita("API_KEY","PASSWORD");
 $balance=$ezsms->getbalance();
-echo "You have ".$balance[balance]." euros remaining.";
+echo "You have ".$balance['balance']." euros remaining.";
 ```
 
 
@@ -104,7 +104,7 @@ if($lookup[code]==1){
     foreach($lookup[data] as $id=>$data){
         print_r($data);
     }
-}else{ echo "Error code: ".$lookup[code].", ".$lookup[message]; }
+}else{ echo "Error code: ".$lookup['code'].", ".$lookup['message']; }
 ```
 
 

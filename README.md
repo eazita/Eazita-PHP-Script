@@ -21,26 +21,28 @@ require 'EazitaMessaging.php';
 ```
 
 
-Sending Messages
+Send messages via Eazita API
 ------------
-1) To send messages, First create Authentication with your API key and password:
+1) To send a message, First create Authentication with your API key and password:
 
 ```php
 $ezsms = new Eazita("API_KEY","PASSWORD");
 ```
 
-2) Then use build_send() method to build multiple messages.
+2) Then use build_send() method to build your message.
 
 ```php
 $ezsms->build_send(['to' => "Recipient",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
 ```
-You can also build multiple requests: 
+You can also build multiple Messaging requests: 
 
 ```php
 $ezsms->build_send(['to' => "Recipient_1",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
 $ezsms->build_send(['to' => "Recipient_2",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
 $ezsms->build_send(['to' => "Recipient_3",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
 ```
+
+
 3) Then use execute_send() to execute your request:
 
 ```php
@@ -56,6 +58,16 @@ $ezsms->build_send(['to' => "Recipient_2",'from' => EZSMS,'msg' => 'Test message
 $ezsms->build_send(['to' => "Recipient_3",'from' => EZSMS,'msg' => 'Test message from Eazita.']);
 
 $msg=$ezsms->execute_send();
+```
+
+
+Check your Eazita balance
+------------
+Use getbalance() method to check your eazita account balance:
+```php
+$ezsms = new Eazita("API_KEY","PASSWORD");
+$balance=$ezsms->getbalance();
+echo "You have ".$balance[balance]." euros remaining.";
 ```
 
 

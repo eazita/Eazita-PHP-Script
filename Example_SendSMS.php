@@ -20,7 +20,7 @@ $msg=$ezsms->execute_send();
 
 echo "<div align='center'><table border='1'><tr><th>Status</th><th>Message ID</th><th>Recipient</th></tr>";
 if(count($msg)>0){ foreach($msg as $recipient=>$resp){
-    echo "<tr><td>".$resp[status]."</td><td>".$resp[messageid]."</td><td>".$recipient."</td></tr>";
+    echo "<tr><td>".$resp['status']."</td><td>".$resp['messageid']."</td><td>".$recipient."</td></tr>";
 } }
 echo "</table></div>";
 

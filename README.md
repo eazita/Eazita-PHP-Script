@@ -58,7 +58,7 @@ $msg=$ezsms->execute_send();
 if(count($msg)>0){ foreach($msg as $recipient=>$resp){
     echo "The status of message on ".$recipient." is ".$resp[status]." & the message id is ".$resp[messageid].".";
 } }
-``
+```
 
 
 
@@ -78,6 +78,7 @@ if(count($msg)>0){ foreach($msg as $recipient=>$resp){
 ```
 
 
+
 Check your Eazita balance
 ------------
 Use getbalance() method to check your eazita account balance:
@@ -87,6 +88,24 @@ $balance=$ezsms->getbalance();
 echo "You have ".$balance[balance]." euros remaining.";
 ```
 
+
+
+Perform number loookup
+------------
+You can use Number lookup to gather information about phone numbers.
+```php
+$ezsms = new Eazita("API_KEY","PASSWORD");
+$lookup=$ezsms->lookup(['package' => 'carrier','gsm' => '923122699633;923121103792']);
+```
+You can select your package on a per request, every package will output different results. Valid packages are basic, carrier & cnam.
+You can also supply multiple GSM numbers on every request however basic package only support one number in every request.
+```php
+if($lookup[code]==1){
+    foreach($lookup[data] as $id=>$data){
+        print_r($data);
+    }
+}else{ echo "Error code: ".$lookup[code].", ".$lookup[message]; }
+```
 
 
 Quick Example

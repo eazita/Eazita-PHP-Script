@@ -33,7 +33,43 @@ class Eazita {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         return json_decode(curl_exec($ch),true);
     }
-
+    
+    function start_verify($data){
+        if(!$data['number']) return false;
+        if($data['brand']){ $optpara="&brand=".$data['brand']; }
+        if($data['expire']){ $optpara="&expire=".$data['expire']; }
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->options['protocol'].$this->base_url."/verify?api=".$this->apikey."&pass=".$this->pass."&action=start&number=".$data['number'].$optpara);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 7);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        return json_decode(curl_exec($ch),true);
+    }
+    
+    function cancel_verify($data){
+        if(!$data['number']) return false;
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->options['protocol'].$this->base_url."/verify?api=".$this->apikey."&pass=".$this->pass."&action=cancel&number=".$data['number']);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 7);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        return json_decode(curl_exec($ch),true);
+    }
+    
+    function check_verify_code($data){
+        if(!$data['number']) return false;
+        if(!$data['code']) return false;
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->options['protocol'].$this->base_url."/verify?api=".$this->apikey."&pass=".$this->pass."&action=verify&number=".$data['number']."&code=".$data['code']);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 7);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        return json_decode(curl_exec($ch),true);
+    }
+    
     function build_send($data){
         if($this->request[$data['to']]) return false;
         if(!is_numeric($data['to'])) return false;

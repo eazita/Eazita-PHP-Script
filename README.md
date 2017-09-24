@@ -90,6 +90,43 @@ echo "You have ".$balance['balance']." euros remaining.";
 
 
 
+2-Factor Authentication (2FA)
+------------
+2FA is a cloud based number verification solution that confirms the identity of the user and protects the system from phishing or hacking attacks. This Verify API allows you to send a one-time PIN code by SMS and Voice Call. The user receives the PIN code and types it into the application to confirm the identity.
+
+1) Send a verification code to start two-factor authentication or phone verification process:
+```php
+$ezsms = new Eazita("API_KEY","PASSWORD");
+
+$start_verify=$ezsms->start_verify(['number' => '923122699633','brand' => 'Your-Company','expire' => '600']);
+if($start_verify['code']==1){
+echo "Verification process is started:</br>";
+echo "Number Type: ".$start_verify['NumberType']."</br>";
+echo "Number Continent: ".$start_verify['location']['continent']."</br>";
+echo "Number Country: ".$start_verify['location']['country']."</br>";
+echo "Number Formats: International: ".$start_verify['NumberFormat']['international'].", National: ".$start_verify['NumberFormat']['national']."</br>";
+}else{ echo "Error code: ".$start_verify['code'].", ".$start_verify['error']."</br>"; }
+```
+
+2) Check the verification code that user has provided:
+```php
+$check_verify_code=$ezsms->check_verify_code(['number' => '923122699633','code' => '1234']);
+if($check_verify_code['code']==1){
+echo "Number Successfully verified:";
+print_r($check_verify_code);
+}else{ echo "Error code: ".$check_verify_code['code'].", ".$check_verify_code['error']."</br>"; }
+```
+
+3) Cancel the verification request:
+```php
+$cancel_verify=$ezsms->cancel_verify(['number' => '923122699633']);
+if($cancel_verify['code']==1){
+echo "Number verification request has canceled.</br>";
+}else{ echo "Error code: ".$cancel_verify['code'].", ".$cancel_verify['error']."</br>"; }
+```
+
+
+
 Perform number loookup
 ------------
 You can use Number lookup to gather information about phone numbers.

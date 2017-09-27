@@ -36,8 +36,9 @@ class Eazita {
     
     function start_verify($data){
         if(!$data['number']) return false;
-        if($data['brand']){ $optpara="&brand=".$data['brand']; }
-        if($data['expire']){ $optpara="&expire=".$data['expire']; }
+        $optpara="";
+        if($data['brand']){ $optpara.="&brand=".$data['brand']; }
+        if($data['expire']){ $optpara.="&expire=".$data['expire']; }
         
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->options['protocol'].$this->base_url."/verify?api=".$this->apikey."&pass=".$this->pass."&action=start&number=".$data['number'].$optpara);

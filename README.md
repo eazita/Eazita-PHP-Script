@@ -141,9 +141,9 @@ Perform number loookup
 You can use Number lookup to gather information about phone numbers.
 ```php
 $ezsms = new Eazita("API_KEY","PASSWORD");
-$lookup=$ezsms->lookup(['package' => 'carrier','gsm' => '923122699633;923121103792']);
+$lookup=$ezsms->lookup(['package' => 'profile','gsm' => '923122699633']);
 ```
-You can select your package on a per request, every package will output different results. Valid packages are basic, carrier & cnam.
+You can select your package on a per request, every package will output different results. Valid packages are basic, carrier & profile.
 You can also supply multiple GSM numbers on every request however basic package only support one number in every request.
 ```php
 if($lookup[code]==1){

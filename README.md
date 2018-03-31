@@ -78,6 +78,15 @@ if(count($msg)>0){ foreach($msg as $recipient=>$resp){
 ```
 
 
+Check your Delivery Reports
+------------
+Use getdelivery() method to get your sms log:
+```php
+$ezsms = new Eazita("API_KEY","PASSWORD");
+$sms_log=$ezsms->getdelivery(['messageid' => '564581,569398,569399']);
+print_r($sms_log);
+```
+
 
 Check your Eazita balance
 ------------

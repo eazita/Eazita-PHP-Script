@@ -6,7 +6,7 @@ class Eazita {
     protected $request, $options;
     protected $base_url = "api.eazita.com";
     var $msg_type = array("text", "unicode", "flash", "flashunicode");
-    var $hlr_packages = array("basic", "carrier", "cnam");
+    var $hlr_packages = array("basic", "carrier", "profile");
       
     function __construct($apikey,$pass,$options=array('max_throughout' => 10,'protocol' => 'https://')){
         $this->apikey = urlencode($apikey);
@@ -19,17 +19,29 @@ class Eazita {
         if(!$data['gsm']) return false;
         if($data['package']) if(!in_array($data['package'],$this->hlr_packages)) return false;
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->options['protocol'].$this->base_url."/lookup?api=".$this->apikey."&pass=".$this->pass."&package=".urlencode($data['package'])."&gsm=".urlencode($data['gsm']));
+        curl_setopt($ch, CURLOPT_URL, $this->options['protocol'].$this->base_url."/lookup/".urlencode($data['package'])."/json?api=".$this->apikey."&pass=".$this->pass."&gsm=".urlencode($data['gsm']));
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         return json_decode(curl_exec($ch),true);
     }
     function getbalance(){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->options['protocol'].$this->base_url."/balance?api=".$this->apikey."&pass=".$this->pass);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 7);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        return json_decode(curl_exec($ch),true);
+    }
+	
+    function getdelivery($data){
+        $optpara="";
+        if($data['messageid']){ $optpara.="&messageid=".$data['messageid']; }
+        if($data['contents']){ $optpara.="&contents=".$data['contents']; }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->options['protocol'].$this->base_url."/sms/delivery?api=".$this->apikey."&pass=".$this->pass.$optpara);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 50);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         return json_decode(curl_exec($ch),true);
     }
@@ -94,10 +106,12 @@ class Eazita {
         foreach ($this->request as $resp => $data) {
         $curly[$id]=curl_init();
         $tempdata[$id]=$resp;
-        curl_setopt($curly[$id], CURLOPT_URL,$this->options['protocol'].$this->base_url."/json");
+        curl_setopt($curly[$id], CURLOPT_URL,$this->options['protocol'].$this->base_url."/sms/json");
         curl_setopt($curly[$id], CURLOPT_HEADER,0);
         curl_setopt($curly[$id], CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curly[$id], CURLOPT_POST,1);
+		curl_setopt($curly[$id], CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($curly[$id], CURLOPT_TIMEOUT, 7);
         curl_setopt($curly[$id], CURLOPT_POSTFIELDS, $data);
         curl_multi_add_handle($mh, $curly[$id]);
         $id++;
@@ -109,7 +123,7 @@ class Eazita {
         
         foreach($curly as $id => $c) {
             $temp=json_decode(curl_multi_getcontent($c),true);
-            if($temp['messages'][0]) $result[$tempdata[$id]] =$temp['messages'][0];
+            if($temp['messages'][0]){ $result[$tempdata[$id]] =$temp['messages'][0]; }elseif($temp['code']){ $result[$tempdata[$id]]=$temp; }
             curl_multi_remove_handle($mh, $c);
         }
         }
